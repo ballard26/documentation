@@ -100,6 +100,19 @@ to erase a node's drive and restart it. However, in some environments (like when
 and nodes may find their data volumes erased. For such environments, Redpanda recommends setting `empty_seed_starts_cluster` to false and designating a set of seed nodes such that they couldn't lose their storage simultaneously.
 :::
 
+## Configure strict data volumes
+
+By default when Redpanda starts it will look for its data volume and initialize it if its empty. 
+However, there are in cases where a node's drive was accidently erased or an incorrect drive was mounted to the data volume.
+In these cases would be erroneous for Redpanda to initialize this incorrect data volume on start.
+By default Redpanda has no way of distinguishing if a data volume is empty on purpose or by accident. Hence no way of avoid these errors.
+Starting in Redpanda version 22.3 there is a configuration option `storage_strict_data_init` that can be set to allow Redpanda to
+distinguish between a purposefully empty data volume and an accidently empty one.
+
+When `storage_strict_data_init` is set to `true` on a node Redpanda will look for an empty file named `.redpanda_data_dir` in the root of its data volume.
+If the file is not there Redpanda will refuse to start. This file has to be manually created when the data volume is created. And its
+existence allows Redpanda to know whether the data volume its reading from is correct or not.
+
 ## Configure node IDs 
 
 Redpanda automatically generates unique node IDs for each new node. This means that you don't need to include node IDs in configuration files or worry about policies on `node_id` re-use. 

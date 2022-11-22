@@ -109,9 +109,7 @@ By default Redpanda has no way of distinguishing if a data volume is empty on pu
 Starting in Redpanda version 22.3 there is a configuration option `storage_strict_data_init` that can be set to allow Redpanda to
 distinguish between a purposefully empty data volume and an accidently empty one.
 
-When `storage_strict_data_init` is set to `true` on a node Redpanda will look for an empty file named `.redpanda_data_dir` in the root of its data volume.
-If the file is not there Redpanda will refuse to start. This file has to be manually created when the data volume is created. And its
-existence allows Redpanda to know whether the data volume its reading from is correct or not.
+When `storage_strict_data_init` is set to `true` on a node, Redpanda will look for an empty file named `.redpanda_data_dir` in the root of its data volume. If the file is not there Redpanda will not start. This file must be created manually when the data volume is created. Its existence enables Redpanda to distinguish whether the data volume it's reading from is correct or not.
 
 ## Configure node IDs 
 

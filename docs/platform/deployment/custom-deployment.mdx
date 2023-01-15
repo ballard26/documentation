@@ -104,7 +104,7 @@ and nodes may find their data volumes erased. For such environments, Redpanda re
 
 When Redpanda starts, by default it looks for its data volume and initializes it if it's empty. However, there can be cases when a node's drive is accidentally erased or an incorrect drive is mounted to the data volume. Redpanda has no way to distinguish whether or not the data volume is incorrect upon start; consequently, there is no way for it to avoid this type of error. You can avoid such errors by setting the configuration option `storage_strict_data_init`, which enables Redpanda to distinguish between a purposefully empty data volume and an inadvertently empty one.
 
-When `storage_strict_data_init` is set to `true` on a node, Redpanda will look for an empty file named `.redpanda_data_dir` in the root of its data volume. If the file is not there Redpanda will not start. This file must be created manually when the data volume is created. Its existence enables Redpanda to distinguish whether the data volume it's reading from is correct or not.
+When `storage_strict_data_init` is set to `true` on a node, Redpanda looks in the root of its data volume for an empty file named `.redpanda_data_dir`. If the file is not there Redpanda will not start. You must create this file manually when the data volume is created. Its existence enables Redpanda to distinguish whether or not the data volume it's reading from is correct.
 
 ## Configure node IDs 
 

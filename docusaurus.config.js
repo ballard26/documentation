@@ -7,8 +7,6 @@ module.exports = {
   url: 'https://docs.redpanda.com',
   baseUrl: '/',
   trailingSlash: 'true',
-  onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
   favicon: 'img/Redpanda_Favicon_32px.svg',
   organizationName: 'redpanda-data', // Usually your GitHub org/user name.
   projectName: 'redpanda', // Usually your repo name.,
@@ -54,7 +52,7 @@ module.exports = {
     prism: {
       theme: lightCodeTheme,
       darkTheme: darkCodeTheme,
-      additionalLanguages: ['bash', 'docker', 'yaml','docker','powershell','git', 'ini', 'properties', 'javascript']
+      additionalLanguages: ['bash', 'docker', 'yaml','docker','powershell','git', 'ini', 'properties', 'javascript', 'python']
     },
     algolia: {
       // The application ID provided by Algolia
@@ -91,7 +89,7 @@ module.exports = {
           lastVersion: 'current',
           versions: {
             current: {
-              label: '22.2',
+              label: '22.3',
             },
           },
         },
@@ -103,6 +101,28 @@ module.exports = {
         },
         sitemap: {
           changefreq: 'weekly',
+        },
+      },
+    ],
+    [
+      'redocusaurus',
+      {
+        // Plugin Options for loading OpenAPI files
+        specs: [
+          {
+            spec: 'static/api/pandaproxy-schema-registry.json',
+            route: '/docs/api/pandaproxy-schema-registry',
+          },
+          {
+            spec: 'static/api/pandaproxy-rest.json',
+            route: '/docs/api/pandaproxy-rest',
+          },
+        ],
+        // Theme Options for modifying how redoc renders them
+        theme: {
+          options: {
+            hideDownloadButton: true,
+          },
         },
       },
     ],
